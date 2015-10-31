@@ -1,8 +1,9 @@
 import streams
 import sequtils
+import readline_rsyslog
 
 const bufferSize = 4096
-const lineFeed   = "\l"
+const lineFeed   = '\l'
 
 type
   localBuffer = array[0..bufferSize-1,char]
@@ -40,7 +41,7 @@ proc main() =
   # part of the line
   while inputFileStream.readLine(curLine):
     # Restore expected EOL character to line
-    curLine &= lineFeed
+    curLine &= $lineFeed
     if bytesRead + len(curLine) >= bufferSize:
       outputFileStream.flushWith(buffer,bytesRead)
       bytesRead = 0
